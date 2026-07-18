@@ -1,0 +1,24 @@
+{
+  "name": "Reunion of Retirees 2026",
+  "short_name": "Reunion 2026",
+  "description": "1st Grand Reunion of Retirees - 2026. We Are Retired Gunners of VI.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0f0d",
+  "theme_color": "#1a2820",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/logo.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "/logo.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "maskable"
+    }
+  ]
+}
