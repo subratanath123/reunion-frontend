@@ -30,21 +30,18 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-// Fetch: network-first for API, cache-first for static
+// Fetch: only handle same-origin requests
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
 
-  // Always go network for API calls
-  if (url.pathname.startsWith('/api')) {
-    event.respondWith(
-      fetch(request).catch(() =>
-        new Response(JSON.stringify({ error: 'You are offline' }), {
-          status: 503,
-          headers: { 'Content-Type': 'application/json' },
-        })
-      )
-    );
+  // Skip cross-origin requests entirely (API calls to Render, fonts, etc.)
+  if (url.origin !== self.location.origin) {
+    return;
+  }
+
+  // Skip non-GET requests
+  if (request.method !== 'GET') {
     return;
   }
 
@@ -53,7 +50,6 @@ self.addEventListener('fetch', (event) => {
     caches.match(request).then((cached) => {
       const fetchPromise = fetch(request)
         .then((response) => {
-          // Update cache with fresh copy
           if (response.ok) {
             const clone = response.clone();
             caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));

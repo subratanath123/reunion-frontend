@@ -52,7 +52,7 @@ export default function LandingPage() {
           <h1>1st Grand Reunion<br />of Retirees — 2026</h1>
           <p className="hero-tagline">"Once a Gunner, Always a Gunner"</p>
           <div className="hero-date">
-            🎖️ <span>Coming Soon — Stay Tuned for Dates</span>
+            🎖️ <span>November 13, 2026</span>
           </div>
           <div className="btn-group">
             <Link to="/register" className="btn btn-primary btn-lg">
