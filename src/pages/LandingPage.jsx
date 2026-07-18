@@ -114,7 +114,7 @@ export default function LandingPage() {
           <div className="payment-amount">
             <div>
               <div className="amount-label">Registration Fee</div>
-              <div className="amount">৳ 1,000</div>
+              <div className="amount">৳ 1,530</div>
               <div style={{ fontSize: '0.85rem', color: 'var(--gold)', marginTop: '4px' }}>via bKash Send Money</div>
             </div>
           </div>

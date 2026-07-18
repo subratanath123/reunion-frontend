@@ -3,28 +3,15 @@ import { Link } from 'react-router-dom';
 import api from '../services/api';
 
 const RANKS = [
-  'Gunner',
-  'Lance Naik',
-  'Naik',
-  'Havildar',
-  'Sergeant',
-  'Warrant Officer',
-  'Senior Warrant Officer',
-  'Master Warrant Officer',
-  'Naib Subedar',
-  'Subedar',
-  'Subedar Major',
-  'Honorary Lieutenant',
-  'Honorary Captain',
-  'Second Lieutenant',
-  'Lieutenant',
-  'Captain',
-  'Major',
-  'Lieutenant Colonel',
-  'Colonel',
-  'Brigadier General',
-  'Major General',
-  'Other',
+  'H/Capt',
+  'H/Lt',
+  'MWO',
+  'SWO',
+  'WO',
+  'Sgt',
+  'Cpl',
+  'L/Cpl',
+  'Snk',
 ];
 
 export default function PaymentForm() {
@@ -215,7 +202,7 @@ export default function PaymentForm() {
 
         <div style={{ textAlign: 'center', marginTop: '1.5rem' }}>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>
-            Registration fee: <strong style={{ color: 'var(--gold)' }}>৳ 1,000</strong> via bKash
+            Registration fee: <strong style={{ color: 'var(--gold)' }}>৳ 1,530</strong> via bKash Send Money
           </p>
         </div>
       </div>
