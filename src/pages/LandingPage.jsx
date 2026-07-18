@@ -107,7 +107,7 @@ export default function LandingPage() {
         <div className="container">
           <h2>Payment Information</h2>
           <p className="section-desc">
-            Send your registration fee via bKash to any of the following numbers 
+            Use bKash <strong>"Send Money"</strong> to any of the following numbers 
             and then submit your details through our registration form.
           </p>
 
@@ -115,6 +115,7 @@ export default function LandingPage() {
             <div>
               <div className="amount-label">Registration Fee</div>
               <div className="amount">৳ 1,000</div>
+              <div style={{ fontSize: '0.85rem', color: 'var(--gold)', marginTop: '4px' }}>via bKash Send Money</div>
             </div>
           </div>
 
@@ -122,6 +123,7 @@ export default function LandingPage() {
             {bkashInfo.map((info, idx) => (
               <div className="bkash-card" key={idx}>
                 <img src="/bkash-logo.svg" alt="bKash" className="bkash-logo" />
+                <div style={{ fontSize: '0.7rem', color: 'var(--gold)', fontWeight: 600, letterSpacing: '1px', textTransform: 'uppercase' }}>Send Money</div>
                 <div className="bkash-name">{info.adminName}</div>
                 <div className="bkash-number">{info.bkashNumber}</div>
               </div>
