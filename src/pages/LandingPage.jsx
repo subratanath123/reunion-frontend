@@ -92,37 +92,27 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* About Section */}
+      {/* Event Details Section */}
       <section className="section about-section" id="about">
         <div className="container">
+          <h2>Event Details</h2>
           <div className="about-grid">
-            <div className="about-content">
-              <h2>About The Reunion</h2>
-              <p>
-                After years of dedicated service to the nation, we — the retired gunners
-                of VI Artillery — are coming together for our very first Grand Reunion in 2026.
-              </p>
-              <p>
-                This is a celebration of brotherhood, camaraderie, and the bonds forged
-                in service. Whether you served for years or decades, this reunion is for you.
-              </p>
-            </div>
             <ul className="about-features">
               <li>
-                <span className="feature-icon">🎯</span>
-                <span className="feature-text">Reconnect with your fellow gunners and comrades</span>
+                <span className="feature-icon">📅</span>
+                <span className="feature-text">Date: November 13, 2026</span>
               </li>
               <li>
-                <span className="feature-icon">🎖️</span>
-                <span className="feature-text">Celebrate our shared service and memories</span>
+                <span className="feature-icon">💰</span>
+                <span className="feature-text">Registration Fee: ৳ 1,530 (bKash Send Money)</span>
               </li>
               <li>
-                <span className="feature-icon">🤝</span>
-                <span className="feature-text">Strengthen the bond of brotherhood forever</span>
+                <span className="feature-icon">👥</span>
+                <span className="feature-text">For all retired personnel of VI Artillery</span>
               </li>
               <li>
-                <span className="feature-icon">🎉</span>
-                <span className="feature-text">A grand event with dinner, awards & entertainment</span>
+                <span className="feature-icon">📝</span>
+                <span className="feature-text">Register online and send payment via bKash to confirm your spot</span>
               </li>
             </ul>
           </div>
