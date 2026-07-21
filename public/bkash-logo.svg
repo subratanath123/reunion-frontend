@@ -1,11 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80">
-  <defs>
-    <linearGradient id="bkash-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#e2136e;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#d4145a;stop-opacity:1" />
-    </linearGradient>
-  </defs>
-  <rect width="200" height="80" rx="12" fill="#e2136e"/>
-  <text x="100" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="24" fill="white">b</text>
-  <text x="100" y="58" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="16" fill="white">Kash</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 200">
+  <!-- bKash official brand colors -->
+  <rect width="512" height="200" rx="20" fill="#e2136e"/>
+  <!-- "b" letter -->
+  <text x="80" y="135" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="120" fill="white" letter-spacing="-2">b</text>
+  <!-- "Kash" text -->
+  <text x="155" y="135" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="100" fill="white" letter-spacing="-1">Kash</text>
 </svg>

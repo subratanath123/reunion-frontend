@@ -1615,8 +1615,9 @@ table tr:hover td {
 }
 
 .bkash-card-centered .bkash-logo {
-  height: 36px;
-  margin-bottom: 0.5rem;
+  height: 52px;
+  margin-bottom: 0.8rem;
+  border-radius: 8px;
 }
 
 .bkash-card-centered .bkash-label {
