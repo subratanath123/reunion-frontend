@@ -135,7 +135,7 @@ export default function LandingPage() {
       <section className="organizer-section">
         <div className="container">
           <div className="organizer-card">
-            <div className="organizer-label">Head of Registration Organizer & Platform Owner</div>
+            <div className="organizer-label">Head of Registration Organizer</div>
             <div className="organizer-name">Mokles Vai</div>
             <div className="organizer-phone">📞 01679783313</div>
             <div className="organizer-note">For any queries regarding the reunion</div>
