@@ -44,7 +44,7 @@ export default function LandingPage() {
         <div className="container">
           <Link to="/" className="navbar-brand">
             <img src="/logo.jpg" alt="Reunion Logo" />
-            <span>Reunion 2026</span>
+            <span>Grand Reunion of Retired Gunners of VI</span>
           </Link>
           <button className="navbar-menu-btn" onClick={() => setMenuOpen(!menuOpen)}>
             {menuOpen ? '✕' : '☰'}

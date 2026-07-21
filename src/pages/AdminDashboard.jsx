@@ -17,7 +17,14 @@ export default function AdminDashboard() {
   const [notifications, setNotifications] = useState([]);
   const [showNotifications, setShowNotifications] = useState(false);
 
+  // Password change state (Mokles only)
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const [adminUsers, setAdminUsers] = useState([]);
+  const [passwordForm, setPasswordForm] = useState({ targetMobileNumber: '', newPassword: '', confirmPassword: '' });
+  const [passwordMsg, setPasswordMsg] = useState('');
+
   const admin = JSON.parse(localStorage.getItem('reunion_admin') || '{}');
+  const isSuperAdmin = admin.mobileNumber === '01679783313'; // Mokles
 
   const fetchData = useCallback(async () => {
     try {
@@ -126,6 +133,41 @@ export default function AdminDashboard() {
       );
     } catch (err) {
       // silently fail
+    }
+  };
+
+  // Password change handlers
+  const openPasswordModal = async () => {
+    try {
+      const users = await api.getAdminUsers();
+      setAdminUsers(users);
+      setPasswordForm({ targetMobileNumber: '', newPassword: '', confirmPassword: '' });
+      setPasswordMsg('');
+      setShowPasswordModal(true);
+    } catch (err) {
+      alert('Failed to load admin users');
+    }
+  };
+
+  const handleChangePassword = async () => {
+    if (!passwordForm.targetMobileNumber) {
+      setPasswordMsg('Please select an admin');
+      return;
+    }
+    if (passwordForm.newPassword.length < 6) {
+      setPasswordMsg('Password must be at least 6 characters');
+      return;
+    }
+    if (passwordForm.newPassword !== passwordForm.confirmPassword) {
+      setPasswordMsg('Passwords do not match');
+      return;
+    }
+    try {
+      await api.changePassword(passwordForm.targetMobileNumber, passwordForm.newPassword);
+      setPasswordMsg('✅ Password changed successfully!');
+      setPasswordForm({ targetMobileNumber: '', newPassword: '', confirmPassword: '' });
+    } catch (err) {
+      setPasswordMsg('❌ ' + (err.message || 'Failed to change password'));
     }
   };
 
@@ -252,6 +294,11 @@ export default function AdminDashboard() {
             </div>
 
             <span>Welcome, <strong style={{ color: 'var(--gold)' }}>{admin.name}</strong></span>
+            {isSuperAdmin && (
+              <button className="btn btn-secondary btn-sm" onClick={openPasswordModal}>
+                🔑 Passwords
+              </button>
+            )}
             <button className="btn btn-secondary btn-sm" onClick={handleLogout}>
               Logout
             </button>
@@ -491,6 +538,60 @@ export default function AdminDashboard() {
                 onClick={() => handleDelete(deleteConfirm.id)}
               >
                 Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Password Change Modal (Mokles only) */}
+      {showPasswordModal && (
+        <div className="modal-overlay" onClick={() => setShowPasswordModal(false)}>
+          <div className="modal" onClick={(e) => e.stopPropagation()}>
+            <h2>🔑 Change Password</h2>
+            <div className="form-group">
+              <label>Select Admin</label>
+              <select
+                value={passwordForm.targetMobileNumber}
+                onChange={(e) => setPasswordForm({ ...passwordForm, targetMobileNumber: e.target.value })}
+              >
+                <option value="">-- Select Admin --</option>
+                {adminUsers.map((u) => (
+                  <option key={u.mobileNumber} value={u.mobileNumber}>
+                    {u.name} ({u.mobileNumber})
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="form-group">
+              <label>New Password</label>
+              <input
+                type="password"
+                value={passwordForm.newPassword}
+                onChange={(e) => setPasswordForm({ ...passwordForm, newPassword: e.target.value })}
+                placeholder="Min 6 characters"
+              />
+            </div>
+            <div className="form-group">
+              <label>Confirm Password</label>
+              <input
+                type="password"
+                value={passwordForm.confirmPassword}
+                onChange={(e) => setPasswordForm({ ...passwordForm, confirmPassword: e.target.value })}
+                placeholder="Re-enter password"
+              />
+            </div>
+            {passwordMsg && (
+              <p style={{ color: passwordMsg.startsWith('✅') ? '#4ade80' : '#ef4444', fontSize: '0.85rem', marginBottom: '0.5rem' }}>
+                {passwordMsg}
+              </p>
+            )}
+            <div className="modal-actions">
+              <button className="btn btn-secondary btn-sm" onClick={() => setShowPasswordModal(false)}>
+                Close
+              </button>
+              <button className="btn btn-primary btn-sm" onClick={handleChangePassword}>
+                Change Password
               </button>
             </div>
           </div>

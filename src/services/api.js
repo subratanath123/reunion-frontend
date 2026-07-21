@@ -83,6 +83,14 @@ export const api = {
   markAllNotificationsRead: () => request('/admin/notifications/read-all', {
     method: 'PUT',
   }),
+
+  // Admin Management (Mokles only)
+  getAdminUsers: () => request('/admin/users'),
+
+  changePassword: (targetMobileNumber, newPassword) => request('/admin/change-password', {
+    method: 'PUT',
+    body: JSON.stringify({ targetMobileNumber, newPassword }),
+  }),
 };
 
 export default api;
