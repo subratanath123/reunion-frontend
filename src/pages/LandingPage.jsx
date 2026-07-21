@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../services/api';
 
@@ -6,6 +6,8 @@ export default function LandingPage() {
   const [bkashInfo, setBkashInfo] = useState([]);
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef(null);
 
   useEffect(() => {
     api.getBkashInfo()
@@ -22,8 +24,34 @@ export default function LandingPage() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const toggleMusic = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
   return (
     <div>
+      {/* Background Music */}
+      <audio ref={audioRef} loop preload="auto">
+        <source src="/durgam-giri.mp3" type="audio/mpeg" />
+      </audio>
+
+      {/* Floating Music Button */}
+      <button
+        onClick={toggleMusic}
+        className={`music-btn ${isPlaying ? 'playing' : ''}`}
+        title={isPlaying ? 'Pause Music' : 'Play: দুর্গম গিরি কান্তার মরু'}
+        aria-label="Toggle music"
+      >
+        {isPlaying ? '⏸️' : '🎵'}
+        <span className="music-label">{isPlaying ? 'Pause' : 'Play'}</span>
+      </button>
       {/* Navbar */}
       <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
         <div className="container">
@@ -71,11 +99,11 @@ export default function LandingPage() {
             <div className="about-content">
               <h2>About The Reunion</h2>
               <p>
-                After years of dedicated service to the nation, we — the retired gunners 
+                After years of dedicated service to the nation, we — the retired gunners
                 of VI Artillery — are coming together for our very first Grand Reunion in 2026.
               </p>
               <p>
-                This is a celebration of brotherhood, camaraderie, and the bonds forged 
+                This is a celebration of brotherhood, camaraderie, and the bonds forged
                 in service. Whether you served for years or decades, this reunion is for you.
               </p>
             </div>
@@ -106,7 +134,7 @@ export default function LandingPage() {
         <div className="container">
           <h2>Payment Information</h2>
           <p className="section-desc">
-            Use bKash <strong>"Send Money"</strong> to the following number 
+            Use bKash <strong>"Send Money"</strong> to the following number
             and then submit your details through our registration form.
           </p>
 
@@ -168,8 +196,7 @@ export default function LandingPage() {
       <footer className="footer">
         <div className="container">
           <p>
-            © 2026 <span className="footer-brand">1st Grand Reunion of Retirees</span>. 
-            Organized by Mokles.
+            © 2026 <span className="footer-brand">1st Grand Reunion of Retirees</span>.
           </p>
         </div>
       </footer>
