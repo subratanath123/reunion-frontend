@@ -39,7 +39,7 @@ export default function LandingPage() {
     <div>
       {/* Background Music */}
       <audio ref={audioRef} loop preload="auto">
-        <source src="/durgam-giri.mp3" type="audio/mpeg" />
+        <source src="/Durgom Giri Kantar (music.com.bd).mp3" type="audio/mpeg" />
       </audio>
 
       {/* Floating Music Button */}
