@@ -1,5 +1,5 @@
 const API_BASE = import.meta.env.VITE_API_URL
-  || (window.location.hostname.includes('onrender.com')
+  || (window.location.hostname.includes('onrender.com') || window.location.hostname.includes('vercel.app')
     ? 'https://reunion-backend-cd8x.onrender.com/api'
     : '/api');
 
