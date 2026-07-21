@@ -14,7 +14,6 @@ export default function LandingPage() {
         // Fallback if API is not ready
         setBkashInfo([
           { adminName: 'Shahin', bkashNumber: '01712481019' },
-          { adminName: 'Mokles', bkashNumber: '01679783313' },
         ]);
       });
 
@@ -107,7 +106,7 @@ export default function LandingPage() {
         <div className="container">
           <h2>Payment Information</h2>
           <p className="section-desc">
-            Use bKash <strong>"Send Money"</strong> to any of the following numbers 
+            Use bKash <strong>"Send Money"</strong> to the following number 
             and then submit your details through our registration form.
           </p>
 
@@ -138,12 +137,39 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Organizer Section */}
+      <section className="section" style={{ paddingBottom: '2rem' }}>
+        <div className="container" style={{ textAlign: 'center' }}>
+          <div style={{
+            background: 'linear-gradient(135deg, rgba(201, 168, 76, 0.08), rgba(201, 168, 76, 0.02))',
+            border: '1px solid rgba(201, 168, 76, 0.25)',
+            borderRadius: '16px',
+            padding: '2rem',
+            maxWidth: '480px',
+            margin: '0 auto',
+          }}>
+            <div style={{ fontSize: '0.7rem', color: 'var(--gold)', fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
+              Head of Reunion Arrangement
+            </div>
+            <div style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'var(--font-heading)' }}>
+              Mokles
+            </div>
+            <div style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>
+              📞 01679783313
+            </div>
+            <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '0.5rem', fontStyle: 'italic' }}>
+              For any queries regarding the reunion, please contact
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="footer">
         <div className="container">
           <p>
-            © 2026 <span className="footer-brand">Retired Gunners of VI</span>. 
-            1st Grand Reunion of Retirees.
+            © 2026 <span className="footer-brand">1st Grand Reunion of Retirees</span>. 
+            Organized by Mokles.
           </p>
         </div>
       </footer>
