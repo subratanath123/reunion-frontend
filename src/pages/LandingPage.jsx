@@ -113,7 +113,7 @@ export default function LandingPage() {
             <div className="bkash-section">
               {bkashInfo.map((info, idx) => (
                 <div className="bkash-card-centered" key={idx}>
-                  <img src="/bkash-logo.svg" alt="bKash" className="bkash-logo" />
+                  <img src="/bkash-logo.png" alt="bKash" className="bkash-logo" />
                   <div className="bkash-label">Send Money</div>
                   <div className="bkash-name">{info.adminName}</div>
                   <div className="bkash-number">{info.bkashNumber}</div>
