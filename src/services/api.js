@@ -1,4 +1,7 @@
-const API_BASE = import.meta.env.VITE_API_URL || '/api';
+const API_BASE = import.meta.env.VITE_API_URL
+  || (window.location.hostname.includes('onrender.com')
+    ? 'https://reunion-backend-cd8x.onrender.com/api'
+    : '/api');
 
 async function request(url, options = {}) {
   const token = localStorage.getItem('reunion_token');
