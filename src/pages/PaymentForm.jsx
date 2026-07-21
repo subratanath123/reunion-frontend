@@ -3,15 +3,15 @@ import { Link } from 'react-router-dom';
 import api from '../services/api';
 
 const RANKS = [
-  'H/Capt',
-  'H/Lt',
-  'MWO',
-  'SWO',
-  'WO',
-  'Sgt',
-  'Cpl',
-  'L/Cpl',
-  'Snk',
+  { value: 'H/Capt', label: 'Honorary Captain (H/Capt)' },
+  { value: 'H/Lt', label: 'Honorary Lieutenant (H/Lt)' },
+  { value: 'MWO', label: 'Master Warrant Officer (MWO)' },
+  { value: 'SWO', label: 'Senior Warrant Officer (SWO)' },
+  { value: 'WO', label: 'Warrant Officer (WO)' },
+  { value: 'Sgt', label: 'Sergeant (Sgt)' },
+  { value: 'Cpl', label: 'Corporal (Cpl)' },
+  { value: 'L/Cpl', label: 'Lance Corporal (L/Cpl)' },
+  { value: 'Snk', label: 'Sainik (Snk)' },
 ];
 
 export default function PaymentForm() {
@@ -133,7 +133,7 @@ export default function PaymentForm() {
               >
                 <option value="">Select your rank</option>
                 {RANKS.map((r) => (
-                  <option key={r} value={r}>{r}</option>
+                  <option key={r.value} value={r.value}>{r.label}</option>
                 ))}
               </select>
               {errors.rank && <div className="form-error">{errors.rank}</div>}
