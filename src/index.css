@@ -1618,6 +1618,9 @@ table tr:hover td {
   height: 60px;
   margin-bottom: 0.8rem;
   object-fit: contain;
+  background: #ffffff;
+  padding: 8px 16px;
+  border-radius: 10px;
 }
 
 .bkash-card-centered .bkash-label {
