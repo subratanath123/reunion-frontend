@@ -1,4 +1,4 @@
-const CACHE_NAME = 'reunion-v1';
+const CACHE_NAME = 'reunion-v2';
 const STATIC_ASSETS = [
   '/',
   '/logo.jpg',
@@ -30,18 +30,28 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-// Fetch: only handle same-origin requests
+// Fetch: only handle same-origin GET requests for static assets
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
 
-  // Skip cross-origin requests entirely (API calls to Render, fonts, etc.)
+  // Skip cross-origin requests
   if (url.origin !== self.location.origin) {
     return;
   }
 
-  // Skip non-GET requests
+  // Skip non-GET requests (POST, PUT, DELETE etc.)
   if (request.method !== 'GET') {
+    return;
+  }
+
+  // Skip API calls - let them go directly to network
+  if (url.pathname.startsWith('/api/')) {
+    return;
+  }
+
+  // Skip audio/media files (206 partial responses can't be cached)
+  if (url.pathname.endsWith('.mp3') || url.pathname.endsWith('.wav') || url.pathname.endsWith('.ogg')) {
     return;
   }
 
@@ -50,7 +60,7 @@ self.addEventListener('fetch', (event) => {
     caches.match(request).then((cached) => {
       const fetchPromise = fetch(request)
         .then((response) => {
-          if (response.ok) {
+          if (response.ok && response.status === 200) {
             const clone = response.clone();
             caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
           }
