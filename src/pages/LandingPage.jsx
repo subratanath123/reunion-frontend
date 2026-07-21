@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../services/api';
 
@@ -6,52 +6,39 @@ export default function LandingPage() {
   const [bkashInfo, setBkashInfo] = useState([]);
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = useRef(null);
+  const [backendReady, setBackendReady] = useState(false);
+  const [backendLoading, setBackendLoading] = useState(true);
 
   useEffect(() => {
-    api.getBkashInfo()
-      .then(setBkashInfo)
-      .catch(() => {
-        // Fallback if API is not ready
-        setBkashInfo([
-          { adminName: 'Shahin', bkashNumber: '01712481019' },
-        ]);
-      });
+    // Check backend health (handles Render cold start)
+    const checkBackend = async () => {
+      setBackendLoading(true);
+      try {
+        await api.checkHealth();
+        setBackendReady(true);
+        // Once backend is up, fetch bKash info
+        try {
+          const info = await api.getBkashInfo();
+          setBkashInfo(info);
+        } catch {
+          setBkashInfo([{ adminName: 'Shahin', bkashNumber: '01712481019' }]);
+        }
+      } catch {
+        // Backend not ready yet, retry after 5 seconds
+        setTimeout(checkBackend, 5000);
+      } finally {
+        setBackendLoading(false);
+      }
+    };
+    checkBackend();
 
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const toggleMusic = () => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause();
-      } else {
-        audioRef.current.play();
-      }
-      setIsPlaying(!isPlaying);
-    }
-  };
-
   return (
     <div>
-      {/* Background Music */}
-      <audio ref={audioRef} loop preload="auto">
-        <source src="/Durgom Giri Kantar (music.com.bd).mp3" type="audio/mpeg" />
-      </audio>
-
-      {/* Floating Music Button */}
-      <button
-        onClick={toggleMusic}
-        className={`music-btn ${isPlaying ? 'playing' : ''}`}
-        title={isPlaying ? 'Pause Music' : 'Play: দুর্গম গিরি কান্তার মরু'}
-        aria-label="Toggle music"
-      >
-        {isPlaying ? '⏸️' : '🎵'}
-        <span className="music-label">{isPlaying ? 'Pause' : 'Play'}</span>
-      </button>
       {/* Navbar */}
       <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
         <div className="container">
@@ -63,7 +50,6 @@ export default function LandingPage() {
             {menuOpen ? '✕' : '☰'}
           </button>
           <ul className={`navbar-links ${menuOpen ? 'open' : ''}`}>
-            <li><a href="#about" onClick={() => setMenuOpen(false)}>About</a></li>
             <li><a href="#payment" onClick={() => setMenuOpen(false)}>Payment</a></li>
             <li><Link to="/register" onClick={() => setMenuOpen(false)}>Register</Link></li>
             <li><Link to="/admin/login" onClick={() => setMenuOpen(false)}>Admin</Link></li>
@@ -92,92 +78,67 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Event Details Section */}
-      <section className="section about-section" id="about">
-        <div className="container">
-          <h2>Event Details</h2>
-          <div className="about-grid">
-            <ul className="about-features">
-              <li>
-                <span className="feature-icon">📅</span>
-                <span className="feature-text">Date: November 13, 2026</span>
-              </li>
-              <li>
-                <span className="feature-icon">💰</span>
-                <span className="feature-text">Registration Fee: ৳ 1,530 (bKash Send Money)</span>
-              </li>
-              <li>
-                <span className="feature-icon">👥</span>
-                <span className="feature-text">For all retired personnel of VI Artillery</span>
-              </li>
-              <li>
-                <span className="feature-icon">📝</span>
-                <span className="feature-text">Register online and send payment via bKash to confirm your spot</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* Payment Section */}
+      {/* Payment & Registration Section */}
       <section className="section payment-section" id="payment">
         <div className="container">
-          <h2>Payment Information</h2>
-          <p className="section-desc">
-            Use bKash <strong>"Send Money"</strong> to the following number
-            and then submit your details through our registration form.
-          </p>
+          <h2 className="section-title">How to Register</h2>
 
-          <div className="payment-amount">
-            <div>
-              <div className="amount-label">Registration Fee</div>
-              <div className="amount">৳ 1,530</div>
-              <div style={{ fontSize: '0.85rem', color: 'var(--gold)', marginTop: '4px' }}>via bKash Send Money</div>
+          {/* 3 Steps */}
+          <div className="steps-grid">
+            <div className="step-card">
+              <div className="step-number">Step 1</div>
+              <div className="step-title">Send Money via bKash</div>
+              <div className="step-desc">৳ 1,530 to the number below</div>
+            </div>
+            <div className="step-card">
+              <div className="step-number">Step 2</div>
+              <div className="step-title">Submit Your Details</div>
+              <div className="step-desc">Fill the registration form with TxnID</div>
+            </div>
+            <div className="step-card">
+              <div className="step-number">Step 3</div>
+              <div className="step-title">Get Confirmation</div>
+              <div className="step-desc">You'll receive an SMS once verified</div>
             </div>
           </div>
 
-          <div className="bkash-cards">
-            {bkashInfo.map((info, idx) => (
-              <div className="bkash-card" key={idx}>
-                <img src="/bkash-logo.svg" alt="bKash" className="bkash-logo" />
-                <div style={{ fontSize: '0.7rem', color: 'var(--gold)', fontWeight: 600, letterSpacing: '1px', textTransform: 'uppercase' }}>Send Money</div>
-                <div className="bkash-name">{info.adminName}</div>
-                <div className="bkash-number">{info.bkashNumber}</div>
-              </div>
-            ))}
-          </div>
+          {/* bKash Info - only shows when backend is ready */}
+          {backendLoading && !backendReady ? (
+            <div className="backend-loading">
+              <div className="spinner"></div>
+              <p>Connecting to server...</p>
+              <p className="loading-hint">First load may take 30–60 seconds</p>
+            </div>
+          ) : (
+            <div className="bkash-section">
+              {bkashInfo.map((info, idx) => (
+                <div className="bkash-card-centered" key={idx}>
+                  <img src="/bkash-logo.svg" alt="bKash" className="bkash-logo" />
+                  <div className="bkash-label">Send Money</div>
+                  <div className="bkash-name">{info.adminName}</div>
+                  <div className="bkash-number">{info.bkashNumber}</div>
+                  <div className="bkash-amount">৳ 1,530</div>
+                </div>
+              ))}
+            </div>
+          )}
 
-          <div className="btn-group">
+          <div className="cta-center">
             <Link to="/register" className="btn btn-primary btn-lg">
-              ✍️ Submit Payment Details
+              ✍️ Register & Submit Payment Details
             </Link>
           </div>
         </div>
       </section>
 
       {/* Organizer Section */}
-      <section className="section" style={{ paddingBottom: '2rem' }}>
-        <div className="container" style={{ textAlign: 'center' }}>
-          <div style={{
-            background: 'linear-gradient(135deg, rgba(201, 168, 76, 0.08), rgba(201, 168, 76, 0.02))',
-            border: '1px solid rgba(201, 168, 76, 0.25)',
-            borderRadius: '16px',
-            padding: '2rem',
-            maxWidth: '480px',
-            margin: '0 auto',
-          }}>
-            <div style={{ fontSize: '0.7rem', color: 'var(--gold)', fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
-              Head of Reunion Arrangement
-            </div>
-            <div style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'var(--font-heading)' }}>
-              Mokles
-            </div>
-            <div style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>
-              📞 01679783313
-            </div>
-            <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '0.5rem', fontStyle: 'italic' }}>
-              For any queries regarding the reunion, please contact
-            </div>
+      <section className="organizer-section">
+        <div className="container">
+          <div className="organizer-card">
+            <div className="organizer-label">Head of Reunion Arrangement</div>
+            <div className="organizer-name">Mokles</div>
+            <div className="organizer-phone">📞 01679783313</div>
+            <div className="organizer-note">For any queries regarding the reunion</div>
           </div>
         </div>
       </section>

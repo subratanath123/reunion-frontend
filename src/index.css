@@ -1540,3 +1540,206 @@ table tr:hover td {
     font-size: 1rem;
   }
 }
+
+/* ===== SECTION TITLE ===== */
+.section-title {
+  text-align: center;
+  font-family: var(--font-heading);
+  color: var(--gold);
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+/* ===== STEPS GRID ===== */
+.steps-grid {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin: 2.5rem 0;
+}
+
+.step-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(201, 168, 76, 0.15);
+  border-radius: 14px;
+  padding: 1.8rem 1.5rem;
+  flex: 0 1 260px;
+  text-align: center;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.step-card:hover {
+  border-color: rgba(201, 168, 76, 0.4);
+  transform: translateY(-3px);
+}
+
+.step-number {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.8rem;
+  opacity: 0.8;
+}
+
+.step-title {
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 1.05rem;
+  margin-bottom: 0.4rem;
+}
+
+.step-desc {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+/* ===== BKASH CENTERED ===== */
+.bkash-section {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.bkash-card-centered {
+  background: var(--bg-card);
+  border: 1px solid rgba(201, 168, 76, 0.2);
+  border-radius: 16px;
+  padding: 2rem 3rem;
+  text-align: center;
+  max-width: 320px;
+  width: 100%;
+}
+
+.bkash-card-centered .bkash-logo {
+  height: 36px;
+  margin-bottom: 0.5rem;
+}
+
+.bkash-card-centered .bkash-label {
+  font-size: 0.65rem;
+  color: var(--gold);
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+}
+
+.bkash-card-centered .bkash-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.bkash-card-centered .bkash-number {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #e2136e;
+  font-family: var(--font-mono, monospace);
+  margin-top: 0.3rem;
+}
+
+.bkash-card-centered .bkash-amount {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--gold);
+  margin-top: 0.6rem;
+}
+
+/* ===== BACKEND LOADING ===== */
+.backend-loading {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+.backend-loading p {
+  color: var(--text-secondary);
+  margin-top: 1rem;
+  font-size: 1rem;
+}
+
+.backend-loading .loading-hint {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-style: italic;
+  margin-top: 0.3rem;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(201, 168, 76, 0.15);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  margin: 0 auto;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ===== CTA CENTER ===== */
+.cta-center {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+/* ===== ORGANIZER SECTION ===== */
+.organizer-section {
+  padding: 2rem 0 3rem;
+  text-align: center;
+}
+
+.organizer-card {
+  background: linear-gradient(135deg, rgba(201, 168, 76, 0.08), rgba(201, 168, 76, 0.02));
+  border: 1px solid rgba(201, 168, 76, 0.25);
+  border-radius: 16px;
+  padding: 2rem;
+  max-width: 380px;
+  margin: 0 auto;
+}
+
+.organizer-label {
+  font-size: 0.6rem;
+  color: var(--gold);
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.organizer-name {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-family: var(--font-heading);
+}
+
+.organizer-phone {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin-top: 0.25rem;
+}
+
+.organizer-note {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+@media (max-width: 600px) {
+  .steps-grid {
+    gap: 1rem;
+  }
+  .step-card {
+    flex: 1 1 100%;
+  }
+  .bkash-card-centered {
+    padding: 1.5rem 2rem;
+  }
+}

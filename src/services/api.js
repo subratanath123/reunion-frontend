@@ -36,6 +36,8 @@ async function request(url, options = {}) {
 
 export const api = {
   // Public
+  checkHealth: () => request('/health'),
+
   submitPayment: (data) => request('/payments', {
     method: 'POST',
     body: JSON.stringify(data),
