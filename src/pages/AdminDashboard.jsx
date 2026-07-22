@@ -525,9 +525,9 @@ export default function AdminDashboard() {
           <div className="modal" onClick={(e) => e.stopPropagation()}>
             <h2>Confirm Delete</h2>
             <p style={{ color: 'var(--text-secondary)', marginBottom: '1rem' }}>
-              Are you sure you want to delete the payment record for{' '}
+              Are you sure you want to remove the payment record for{' '}
               <strong style={{ color: 'var(--text-primary)' }}>{deleteConfirm.name}</strong>?
-              This action cannot be undone.
+              The record will be hidden from the dashboard.
             </p>
             <div className="modal-actions">
               <button className="btn btn-secondary btn-sm" onClick={() => setDeleteConfirm(null)}>

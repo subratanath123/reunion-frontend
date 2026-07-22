@@ -211,6 +211,7 @@ img {
   text-align: center;
   position: relative;
   overflow: hidden;
+  padding-top: 80px;
   background: radial-gradient(ellipse at center bottom, var(--green-darker) 0%, var(--bg-primary) 70%);
 }
 
@@ -274,16 +275,19 @@ img {
 .hero-date {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-sm);
-  padding: var(--space-sm) var(--space-lg);
-  background: var(--bg-glass);
-  border: 1px solid var(--border-color);
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-2xl);
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(10, 15, 13, 0.8));
+  border: 2px solid var(--gold);
   border-radius: var(--radius-lg);
   backdrop-filter: blur(10px);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.25), inset 0 0 15px rgba(212, 175, 55, 0.05);
   color: var(--gold);
   font-family: var(--font-heading);
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
   margin-bottom: var(--space-2xl);
 }
 
